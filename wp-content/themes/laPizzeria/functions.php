@@ -3,6 +3,11 @@
 function lapizzeria_setup() {
     //Imágenes destacadas
     add_theme_support('post-thumbnails');
+
+    //Tamaños de imágenes
+    add_image_size('nosotros', 437, 291, true);
+    add_image_size('especialidades', 768, 515, true);
+    add_image_size('especialidades_portrait', 435, 526, true);
 }
 add_action('after_setup_theme', 'lapizzeria_setup');
 
