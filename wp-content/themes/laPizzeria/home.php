@@ -48,6 +48,12 @@ $imagen_src = wp_get_attachment_image_src($imagen_id, 'full')[0];
                 
             </article>
         <?php endwhile; ?>
+
+        <div class="paginacion">
+            <?php next_posts_link('Anteriores'); ?>
+            <?php previous_posts_link('Siguientes'); ?>
+        </div>
+
     </main>
 
     <?php get_sidebar(); ?>
