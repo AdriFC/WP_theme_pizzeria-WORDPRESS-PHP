@@ -458,5 +458,37 @@ img {
     margin-right: 2rem;
 }
 
+/*Sidebar*/
+.widget h3 {
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 1rem 0;
+}
+
+.widget a {
+    color: var(--negro);
+}
+
+.widget a:hover {
+    color: var(--naranja);
+}
+
+.wp-block-search__button-outside .wp-block-search__text-button .wp-block-search {
+    position: relative;
+}
+
+.wp-block-search__button-outside .wp-block-search__text-button .wp-block-search div {
+    
+}
+
+.wp-block-search__button-outside .wp-block-search__text-button .wp-block-search input[type="submit"] {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 5rem;
+    background-color: var(--rojo);
+}
+
 
 
