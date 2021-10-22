@@ -1,0 +1,20 @@
+{
+  "name": "lapizzeria-gutenberg",
+  "version": "1.0.0",
+  "description": "Agrega bloques de Gutenberg",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "author": "Adrián Fraga Cortés",
+  "license": "ISC",
+  "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
+    "@wordpress/scripts": "^18.1.0",
+    "url-loader": "^4.1.1"
+  },
+  "dependencies": {
+    "toml": "^3.0.0"
+  }
+}
