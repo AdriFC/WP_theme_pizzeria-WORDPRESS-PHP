@@ -1,5 +1,6 @@
 const { registerBlockType } = wp.blocks;
-const { RichText } = wp.editor;
+const { RichText, InspectorControls, ColorPalette } = wp.editor;
+const { PanelBody } = wp.components;
 
 //Logo para el bloque
 import { ReactComponent as Logo } from "../pizzeria-icon.svg";
@@ -24,14 +25,22 @@ registerBlockType("lapizzeria/boxes", {
     headingBox: {
       type: "string",
       source: "html",
-      selector: ".box h2",
+      selector: ".box h2"
     },
+    textoBox: {
+      type: "string",
+      source: "html",
+      selector: ".box p"
+    },
+    colorFondo: {
+      type: 'string'
+    }
   },
   edit: (props) => {
     console.log(props);
     //Extraer el contenido desde props
     const {
-      attributes: { headingBox },
+      attributes: { headingBox, textoBox, colorFondo  },
       setAttributes,
     } = props;
 
@@ -40,30 +49,66 @@ registerBlockType("lapizzeria/boxes", {
     const onChangeHeadingBox = (nuevoHeading) => {
       setAttributes({ headingBox: nuevoHeading });
     };
+    const onChangeTextoBox = nuevoTexto => {
+      setAttributes({ textoBox: nuevoTexto });
+    };
+    const onchangeColorFondo = nuevoColor => {
+      setAttributes({ colorFondo: nuevoColor });
+    }
 
     return (
-      <div className="Box">
-            <h2>
-                <RichText
-                    placeholder="Agrega el encabezado"
-                    onChange={onChangeHeadingBox}
-                    value={ headingBox }
+      <>
+        <InspectorControls>
+          <PanelBody
+            title={'Color de fondo'}
+            initialOpen={true}
+          >
+            <div className="components-base-control">
+              <div className="components-base-control__field">
+                <label className="components-base-control__label">
+                    Color de fondo
+                </label>
+                <ColorPalette 
+                  onChange={onchangeColorFondo}
+                  value={colorFondo}
                 />
-            </h2>
-      </div>
+              </div>
+            </div>
+          </PanelBody>
+        </InspectorControls>
+        <div className="Box" style={{backgroundColor: colorFondo}}>
+              <h2>
+                  <RichText
+                      placeholder="Agrega el encabezado"
+                      onChange={onChangeHeadingBox}
+                      value={ headingBox }
+                  />
+              </h2>
+              <p>
+                <RichText
+                placeholder="Agrega el texto"
+                onChange={onChangeTextoBox}
+                value={ textoBox }
+                />
+              </p>
+        </div>
+      </>
     );
   },
   save: (props) => {
         console.log(props);
         //Extraer el contenido desde props
         const {
-        attributes: { headingBox },
+        attributes: { headingBox, textoBox, colorFondo },
         } = props;
         return (
-        <div className="Box">
+        <div className="Box" style={{backgroundColor: colorFondo}}>
             <h2>
                  <RichText.Content value={ headingBox }/>
             </h2>
+            <p>
+                 <RichText.Content value={ textoBox }/>
+            </p>
         </div>
         )
     }

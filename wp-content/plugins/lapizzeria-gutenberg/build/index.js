@@ -55,8 +55,13 @@ const {
   registerBlockType
 } = wp.blocks;
 const {
-  RichText
-} = wp.editor; //Logo para el bloque
+  RichText,
+  InspectorControls,
+  ColorPalette
+} = wp.editor;
+const {
+  PanelBody
+} = wp.components; //Logo para el bloque
 
 
 /* 
@@ -82,6 +87,14 @@ registerBlockType("lapizzeria/boxes", {
       type: "string",
       source: "html",
       selector: ".box h2"
+    },
+    textoBox: {
+      type: "string",
+      source: "html",
+      selector: ".box p"
+    },
+    colorFondo: {
+      type: 'string'
     }
   },
   edit: props => {
@@ -89,7 +102,9 @@ registerBlockType("lapizzeria/boxes", {
 
     const {
       attributes: {
-        headingBox
+        headingBox,
+        textoBox,
+        colorFondo
       },
       setAttributes
     } = props;
@@ -101,26 +116,64 @@ registerBlockType("lapizzeria/boxes", {
       });
     };
 
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "Box"
+    const onChangeTextoBox = nuevoTexto => {
+      setAttributes({
+        textoBox: nuevoTexto
+      });
+    };
+
+    const onchangeColorFondo = nuevoColor => {
+      setAttributes({
+        colorFondo: nuevoColor
+      });
+    };
+
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
+      title: 'Color de fondo',
+      initialOpen: true
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "components-base-control"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "components-base-control__field"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+      className: "components-base-control__label"
+    }, "Color de fondo"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ColorPalette, {
+      onChange: onchangeColorFondo,
+      value: colorFondo
+    }))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "Box",
+      style: {
+        backgroundColor: colorFondo
+      }
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
       placeholder: "Agrega el encabezado",
       onChange: onChangeHeadingBox,
       value: headingBox
-    })));
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
+      placeholder: "Agrega el texto",
+      onChange: onChangeTextoBox,
+      value: textoBox
+    }))));
   },
   save: props => {
     console.log(props); //Extraer el contenido desde props
 
     const {
       attributes: {
-        headingBox
+        headingBox,
+        textoBox,
+        colorFondo
       }
     } = props;
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "Box"
+      className: "Box",
+      style: {
+        backgroundColor: colorFondo
+      }
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
       value: headingBox
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+      value: textoBox
     })));
   }
 });
