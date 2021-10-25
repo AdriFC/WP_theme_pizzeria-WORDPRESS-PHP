@@ -47,7 +47,7 @@ function lapizzeria_registrar_bloques() {
     // Estilos para el editor (unicamente)
     wp_register_style(
         'lapizzeria-editor-styles', // nombre
-        plugins_url( 'build/editor.css', __FILE__), // archivo css para el editor
+        plugins_url( 'src/css/editor.css', __FILE__), // archivo css para el editor
         array('wp-edit-blocks'), // dependencias
         filemtime( plugin_dir_path(__FILE__) . 'src/css/editor.css')
     );
@@ -55,7 +55,7 @@ function lapizzeria_registrar_bloques() {
     // Estilos para los bloques (backend y frontend)
     wp_register_style(
         'lapizzeria-frontend-styles', // nombre
-        plugins_url( 'build/styles.css', __FILE__), // archivo css para el editor
+        plugins_url( 'src/css/styles.css', __FILE__), // archivo css para el editor
         array(), // dependencias
         filemtime( plugin_dir_path(__FILE__) . 'src/css/styles.css')
     );
