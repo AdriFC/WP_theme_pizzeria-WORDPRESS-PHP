@@ -87,7 +87,53 @@ add_action('init', 'lapizzeria_registrar_bloques');
 
 /*Consulta la bbdd para mostrar los resultados en el front end*/
 function lapizzeria_especialidades_front_end() {
-    return 'en el front end';
+    //Obtener los datos del query
+    $especialidades = wp_get_recent_posts(array(
+        'post_type' => 'especialidades',
+        'post_status' => 'publish',
+        'numberposts' => 10
+    ));
+
+    //Revisar que haya resultados
+    if(count($especialidades) == 0) {
+        return 'No hay especialidades';
+    }
+
+    $cuerpo = '';
+    $cuerpo .= '<h2>Nuestras especialidades</h2>';
+    $cuerpo .= ' <ul class="nuestro-menu">';
+    foreach($especialidades as $esp):
+        // Obtener un objecto del post
+        $post = get_post( $esp['ID'] );
+        setup_postdata($post);
+
+        $cuerpo .= sprintf(
+            '<li>
+                %1$s
+                <div class="platillo">
+                    <div class="precio-titulo">
+                        <h3>%2$s</h3>
+                        <p>€ %3$s</p>
+                    </div> 
+                </div>
+                <div class="contenido-platillo">
+                    <p>
+                        %4$s
+                    </p>
+                </div>
+            </li>',
+            get_the_post_thumbnail($post, 'especialidades'),
+            get_the_title($post),
+            get_field('precio', $post),
+            get_the_content($post)
+
+        );
+        wp_reset_postdata();
+    endforeach;
+
+    $cuerpo .= ' </ul>';
+
+    return $cuerpo;
 }
 
 ?>
