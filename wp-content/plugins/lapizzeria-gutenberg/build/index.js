@@ -265,11 +265,93 @@ registerBlockType('lapizzeria/galeria', {
     src: _pizzeria_icon_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
   },
   category: 'lapizzeria',
+  attributes: {
+    imagenes: {
+      type: 'array'
+    }
+  },
   edit: props => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "En el editor");
+    // extraer los valores de props
+    const {
+      attributes: {
+        imagenes = []
+      },
+      setAttributes
+    } = props;
+    console.log(imagenes);
+
+    const borrarImagen = imagenIndex => {
+      const nuevasImagenes = imagenes.filter((imagen, index) => index !== imagenIndex);
+      setAttributes({
+        imagenes: nuevasImagenes
+      });
+    };
+
+    const onSeleccionarNuevaImagen = nuevaImagen => {
+      const imagen = {
+        thumb: nuevaImagen.sizes.medium.url,
+        full: nuevaImagen.sizes.full.url,
+        id: nuevaImagen.id
+      };
+      setAttributes({
+        imagenes: [...imagenes, imagen]
+      });
+    };
+
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "galeria-pizzeria"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(MediaUpload, {
+      onSelect: onSeleccionarNuevaImagen,
+      type: "image",
+      render: ({
+        open
+      }) => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(IconButton, {
+        className: "lapizzeria-agregar-imagen",
+        onClick: open,
+        icon: "format-image",
+        showTooltip: "true",
+        label: "Cambiar Imagen"
+      })
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+      className: "texto-primario"
+    }, "Galer\xEDa"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+      className: "listado-imagenes"
+    }, imagenes.map((imagen, index) => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+      className: "imagen"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "borrar-imagen",
+      onClick: () => borrarImagen(index)
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "dashicons\r dashicons-trash"
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: imagen.thumb
+    })))));
   },
   save: props => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "En el frontend");
+    const {
+      attributes: {
+        imagenes = []
+      }
+    } = props;
+
+    if (imagenes.length === 0) {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "No hay im\xE1genes");
+    }
+
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "galeria-pizzeria"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+      className: "texto-primario"
+    }, "Galer\xEDa"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+      className: "listado-imagenes"
+    }, imagenes.map(imagen => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+      className: "imagen"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: imagen.full,
+      "data-lightbox": "galeria"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: imagen.thumb
+    }))))));
   }
 });
 
