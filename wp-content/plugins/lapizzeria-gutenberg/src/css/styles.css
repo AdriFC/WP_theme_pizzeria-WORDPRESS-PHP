@@ -57,7 +57,7 @@
 
 /** Bloque Menu**/
 .titulo-menu {
-    color: var(--rojo);
+    color: var(--rojo) !important;
     font-family: var(--fuenteHeadings);
     text-align: left;
     font-size: 3rem;
