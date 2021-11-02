@@ -237,6 +237,44 @@ registerBlockType("lapizzeria/boxes", {
 
 /***/ }),
 
+/***/ "./src/galeria/index.js":
+/*!******************************!*\
+  !*** ./src/galeria/index.js ***!
+  \******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _pizzeria_icon_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../pizzeria-icon.svg */ "./src/pizzeria-icon.svg");
+
+const {
+  registerBlockType
+} = wp.blocks;
+const {
+  MediaUpload
+} = wp.editor;
+const {
+  IconButton
+} = wp.components; //Logo para el bloque
+
+
+registerBlockType('lapizzeria/galeria', {
+  title: 'La Pizzeria Galeria',
+  icon: {
+    src: _pizzeria_icon_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
+  },
+  category: 'lapizzeria',
+  edit: props => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "En el editor");
+  },
+  save: props => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "En el frontend");
+  }
+});
+
+/***/ }),
+
 /***/ "./src/menu/index.js":
 /*!***************************!*\
   !*** ./src/menu/index.js ***!
@@ -533,6 +571,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _boxes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./boxes */ "./src/boxes/index.js");
 /* harmony import */ var _menu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./menu */ "./src/menu/index.js");
+/* harmony import */ var _galeria__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./galeria */ "./src/galeria/index.js");
+
 
 
 }();
