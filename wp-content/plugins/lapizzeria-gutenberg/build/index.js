@@ -372,7 +372,8 @@ const {
   registerBlockType
 } = wp.blocks;
 const {
-  MediaUpload
+  MediaUpload,
+  RichText
 } = wp.editor;
 const {
   IconButton
@@ -385,11 +386,55 @@ registerBlockType('lapizzeria/hero', {
     src: _pizzeria_icon_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
   },
   category: 'lapizzeria',
+  attributes: {
+    type: 'string',
+    selector: '.hero-block'
+  },
+  tituloHero: {
+    type: 'string',
+    source: 'html',
+    selector: '.hero-block h1'
+  },
+  textoHero: {
+    type: 'string',
+    source: 'html',
+    selector: '.hero-block p'
+  },
   edit: props => {
-    const onSeleccionarImagen = nuevaImagen => {};
+    //extraer los valores
+    const {
+      attributes: {
+        imagenHero,
+        tituloHero,
+        textoHero
+      },
+      setAttributes
+    } = props;
+
+    const onSeleccionarImagen = nuevaImagen => {
+      setAttributes({
+        imagenHero: nuevaImagen.sizes.full.url
+      });
+    };
+
+    const onChangeTitulo = nuevoTitulo => {
+      setAttributes({
+        tituloHero: nuevoTitulo
+      });
+    };
+
+    const onChangeTexto = nuevoTexto => {
+      setAttributes({
+        textoHero: nuevoTexto
+      });
+    };
 
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "hero-block"
+      className: "hero-block",
+      style: {
+        backgroundImage: `linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)),
+                url( ${imagenHero} )`
+      }
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(MediaUpload, {
       onSelect: onSeleccionarImagen,
       type: "image",
@@ -402,7 +447,17 @@ registerBlockType('lapizzeria/hero', {
         showTooltip: "true",
         label: "Cambiar Imagen"
       })
-    }));
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
+      className: "titulo"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
+      placeholder: 'Agrega el título del hero',
+      onChange: onChangeTitulo,
+      value: tituloHero
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
+      placeholder: 'Agrega el texto del hero',
+      onChange: onChangeTexto,
+      value: textoHero
+    })));
   },
   save: props => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "frontend");
