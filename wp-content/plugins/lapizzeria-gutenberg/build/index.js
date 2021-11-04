@@ -373,32 +373,40 @@ const {
 } = wp.blocks;
 const {
   MediaUpload,
-  RichText
+  RichText,
+  URLInputButton
 } = wp.editor;
 const {
   IconButton
 } = wp.components; //Logo para el bloque
 
 
-registerBlockType('lapizzeria/hero', {
-  title: 'La pizzeria Hero',
+registerBlockType("lapizzeria/hero", {
+  title: "La pizzeria Hero",
   icon: {
     src: _pizzeria_icon_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
   },
-  category: 'lapizzeria',
+  category: "lapizzeria",
   attributes: {
-    type: 'string',
-    selector: '.hero-block'
-  },
-  tituloHero: {
-    type: 'string',
-    source: 'html',
-    selector: '.hero-block h1'
-  },
-  textoHero: {
-    type: 'string',
-    source: 'html',
-    selector: '.hero-block p'
+    imagenHero: {
+      type: "string",
+      selector: ".hero-block"
+    },
+    tituloHero: {
+      type: "string",
+      source: "html",
+      selector: ".hero-block h1"
+    },
+    textoHero: {
+      type: "string",
+      source: "html",
+      selector: ".hero-block p"
+    },
+    urlHero: {
+      type: "string",
+      source: "attribute",
+      attribute: "href"
+    }
   },
   edit: props => {
     //extraer los valores
@@ -406,7 +414,8 @@ registerBlockType('lapizzeria/hero', {
       attributes: {
         imagenHero,
         tituloHero,
-        textoHero
+        textoHero,
+        urlHero
       },
       setAttributes
     } = props;
@@ -426,6 +435,12 @@ registerBlockType('lapizzeria/hero', {
     const onChangeTexto = nuevoTexto => {
       setAttributes({
         textoHero: nuevoTexto
+      });
+    };
+
+    const onChangeUrl = nuevaUrl => {
+      setAttributes({
+        urlHero: nuevaUrl
       });
     };
 
@@ -450,14 +465,18 @@ registerBlockType('lapizzeria/hero', {
     }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
       className: "titulo"
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
-      placeholder: 'Agrega el título del hero',
+      placeholder: "Agrega el título del hero",
       onChange: onChangeTitulo,
       value: tituloHero
     })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
-      placeholder: 'Agrega el texto del hero',
+      placeholder: "Agrega el texto del hero",
       onChange: onChangeTexto,
       value: textoHero
-    })));
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: urlHero
+    }, "Leer m\xE1s")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(UTLInputButton, {
+      onChange: onChangeUrl
+    }));
   },
   save: props => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "frontend");
