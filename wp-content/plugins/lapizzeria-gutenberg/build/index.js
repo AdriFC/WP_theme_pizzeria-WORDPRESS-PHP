@@ -374,48 +374,65 @@ const {
 const {
   MediaUpload,
   RichText,
-  URLInputButton
+  URLInputButton,
+  BlockControls,
+  AlignmentToolbar,
+  InspectorControls
 } = wp.editor;
 const {
-  IconButton
-} = wp.components; //Logo para el bloque
+  IconButton,
+  PanelBody,
+  TextControl
+} = wp.components; // Logo para el bloque
 
 
-registerBlockType("lapizzeria/hero", {
-  title: "La pizzeria Hero",
+registerBlockType('lapizzeria/hero', {
+  title: 'La Pizzeria Hero',
   icon: {
     src: _pizzeria_icon_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
   },
-  category: "lapizzeria",
+  category: 'lapizzeria',
   attributes: {
     imagenHero: {
-      type: "string",
-      selector: ".hero-block"
+      type: 'string',
+      selector: '.hero-block'
     },
     tituloHero: {
-      type: "string",
-      source: "html",
-      selector: ".hero-block h1"
+      type: 'string',
+      source: 'html',
+      selector: '.hero-block h1'
     },
     textoHero: {
-      type: "string",
-      source: "html",
-      selector: ".hero-block p"
+      type: 'string',
+      source: 'html',
+      selector: '.hero-block p'
     },
     urlHero: {
-      type: "string",
-      source: "attribute",
-      attribute: "href"
+      type: 'string',
+      source: 'attribute',
+      attribute: 'href'
+    },
+    alinearContenido: {
+      type: 'string',
+      default: 'center'
+    },
+    alturaHero: {
+      type: 'number'
     }
   },
+  supports: {
+    align: ['wide', 'full']
+  },
   edit: props => {
-    //extraer los valores
+    // extraer los valores
     const {
       attributes: {
         imagenHero,
         tituloHero,
         textoHero,
-        urlHero
+        urlHero,
+        alinearContenido,
+        alturaHero
       },
       setAttributes
     } = props;
@@ -438,19 +455,52 @@ registerBlockType("lapizzeria/hero", {
       });
     };
 
-    const onChangeUrl = nuevaUrl => {
+    const onChangeURL = nuevaUrl => {
       setAttributes({
         urlHero: nuevaUrl
       });
     };
 
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    const onChangeAlinearContenido = nuevaAlineacion => {
+      setAttributes({
+        alinearContenido: nuevaAlineacion
+      });
+    };
+
+    const onChangeAlturaHero = nuevaAltura => {
+      setAttributes({
+        alturaHero: parseInt(nuevaAltura)
+      });
+    };
+
+    console.log(props);
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(PanelBody, {
+      title: 'Altura Hero',
+      initialOpen: true
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "components-base-control"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "components-base-control__field"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+      className: "components-base-control__label"
+    }, "Altura en Pixeles"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
+      type: "number",
+      min: 300,
+      max: 700,
+      step: 10,
+      onChange: onChangeAlturaHero,
+      value: alturaHero || 500
+    }))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "hero-block",
       style: {
-        backgroundImage: `linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)),
-                url( ${imagenHero} )`
+        backgroundImage: `linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)), url( ${imagenHero} )`,
+        textAlign: alinearContenido,
+        height: `${alturaHero || 500}px`
       }
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(MediaUpload, {
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(AlignmentToolbar, {
+      onChange: onChangeAlinearContenido,
+      value: alinearContenido
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(MediaUpload, {
       onSelect: onSeleccionarImagen,
       type: "image",
       render: ({
@@ -462,24 +512,57 @@ registerBlockType("lapizzeria/hero", {
         showTooltip: "true",
         label: "Cambiar Imagen"
       })
-    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "contenido-hero"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
       className: "titulo"
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
-      placeholder: "Agrega el título del hero",
+      placeholder: 'Agrega el Titulo del Hero',
       onChange: onChangeTitulo,
       value: tituloHero
     })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
-      placeholder: "Agrega el texto del hero",
+      placeholder: 'Agrega el Texto del Hero',
       onChange: onChangeTexto,
       value: textoHero
     })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-      href: urlHero
-    }, "Leer m\xE1s")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(UTLInputButton, {
-      onChange: onChangeUrl
-    }));
+      href: urlHero,
+      className: "boton boton-primario"
+    }, "Leer M\xE1s")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(URLInputButton, {
+      onChange: onChangeURL,
+      url: urlHero
+    }))));
   },
   save: props => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "frontend");
+    // extraer los valores
+    const {
+      attributes: {
+        imagenHero,
+        tituloHero,
+        textoHero,
+        urlHero,
+        alinearContenido,
+        alturaHero
+      }
+    } = props;
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "hero-block",
+      style: {
+        backgroundImage: `linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)), url( ${imagenHero} )`,
+        textAlign: alinearContenido,
+        height: `${alturaHero || 500}px`
+      }
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "contenido-hero"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
+      className: "titulo"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+      value: tituloHero
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+      value: textoHero
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: urlHero,
+      className: "boton boton-primario"
+    }, "Leer M\xE1s"))));
   }
 });
 
