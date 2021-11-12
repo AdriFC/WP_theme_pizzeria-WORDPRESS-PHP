@@ -78,6 +78,6 @@
 }
 
 .hero-block .components-icon-button .dashicon {
-    color: var(--blanco);
+    color: var(--blanco)!important;
 }
 
