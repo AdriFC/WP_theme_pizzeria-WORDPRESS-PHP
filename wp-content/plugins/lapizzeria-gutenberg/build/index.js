@@ -803,13 +803,39 @@ registerBlockType("lapizzeria/textoimagen", {
     imagenFondo: {
       type: "string",
       selector: ".ingredientes-bloque"
+    },
+    tituloBloque: {
+      type: "string",
+      source: "html",
+      selector: ".texto-ingredientes h1"
+    },
+    textoBloque: {
+      type: "string",
+      source: "html",
+      selector: ".texto-ingredientes p"
+    },
+    enlaceBloque: {
+      type: "string",
+      source: "attribute",
+      attribute: "href"
+    },
+    imagenBloque: {
+      type: "string",
+      source: "attribute",
+      selector: ".imagen-ingredientes img",
+      attribute: "src",
+      default: _pizzeria_icon_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
     }
   },
   edit: props => {
     //extraer de props
     const {
       attributes: {
-        imagenFondo
+        imagenFondo,
+        tituloBloque,
+        textoBloque,
+        enlaceBloque,
+        imagenBloque
       },
       setAttributes
     } = props;
@@ -817,6 +843,30 @@ registerBlockType("lapizzeria/textoimagen", {
     const onSeleccionarImagen = nuevaImagen => {
       setAttributes({
         imagenFondo: nuevaImagen.sizes.full.url
+      });
+    };
+
+    const onChangeTitulo = nuevoTitulo => {
+      setAttributes({
+        tituloBloque: nuevoTitulo
+      });
+    };
+
+    const onChangeTexto = nuevoTexto => {
+      setAttributes({
+        textoBloque: nuevoTexto
+      });
+    };
+
+    const onChangeURL = nuevaUrl => {
+      setAttributes({
+        enlaceBloque: nuevaUrl
+      });
+    };
+
+    const onSeleccionarImagenIngredientes = nuevaImagen => {
+      setAttributes({
+        imagenBloque: nuevaImagen.sizes.full.url
       });
     };
 
@@ -841,9 +891,39 @@ registerBlockType("lapizzeria/textoimagen", {
       className: "contenido-ingredientes"
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "texto-ingredientes"
-    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
+      className: "titulo"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
+      placeholder: "Agrega el título del hero",
+      onChange: onChangeTitulo,
+      value: tituloBloque
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText, {
+      placeholder: "Agrega el texto del hero",
+      onChange: onChangeTexto,
+      value: textoBloque
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: enlaceBloque,
+      className: "boton boton-secundario"
+    }, "Leer m\xE1s")), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(URLInputButton, {
+      onChange: onChangeURL,
+      url: enlaceBloque
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "imagen-ingredientes"
-    })));
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: imagenBloque
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(MediaUpload, {
+      onSelect: onSeleccionarImagenIngredientes,
+      type: "image",
+      render: ({
+        open
+      }) => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(IconButton, {
+        className: "lapizzeria-agregar-imagen",
+        onClick: open,
+        icon: "format-image",
+        showTooltip: "true",
+        label: "Cambiar Imagen"
+      })
+    }))));
   },
   save: props => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "desde el front end");
