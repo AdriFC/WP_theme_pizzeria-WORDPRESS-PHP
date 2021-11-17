@@ -201,3 +201,8 @@ ul.listado-imagenes {
     border: 1px solid var(--grisClaro);
     width: 100%;
 }
+
+/*Map block leaflet*/
+.map_block_leaflet {
+    margin-top: 30px;
+}
