@@ -65,7 +65,8 @@ function lapizzeria_registrar_bloques() {
         'lapizzeria/boxes',
         'lapizzeria/galeria',
         'lapizzeria/hero',
-        'lapizzeria/textoimagen'
+        'lapizzeria/textoimagen',
+        'lapizzeria/contenedor'
     ];
 
     // Recorrer bloques y agregar scripts y styles

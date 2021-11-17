@@ -59,6 +59,8 @@ h1 {
 
 h2 {
     font-size: 4rem;
+    text-align: center;
+    color: var(--rojo);
 }
 
 h3 {
@@ -353,6 +355,7 @@ img {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    background-attachment: fixed;
     height: 45rem;
     margin: 0 auto;
     position: relative;
