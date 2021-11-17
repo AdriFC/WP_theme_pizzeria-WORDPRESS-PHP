@@ -43,6 +43,11 @@ registerBlockType("lapizzeria/textoimagen", {
       default: Logo
     }
   },
+
+  supports: {
+    align: ['wide', 'full']
+  },
+
   edit: (props) => {
     //extraer de props
     const {
@@ -69,7 +74,7 @@ registerBlockType("lapizzeria/textoimagen", {
     return (
       <div
         className="ingredientes-bloque"
-        style={{ background: `url(${imagenFondo})` }}
+        style={{ backgroundImage: `url(${imagenFondo})` }}
       >
         <MediaUpload
           onSelect={onSeleccionarImagen}
@@ -133,6 +138,41 @@ registerBlockType("lapizzeria/textoimagen", {
     );
   },
   save: (props) => {
-    return <p>desde el front end</p>;
-  },
+
+    //extraer de props
+    const {
+      attributes: { imagenFondo, tituloBloque, textoBloque, enlaceBloque, imagenBloque }} = props;
+
+    return (
+
+      <div
+        className="ingredientes-bloque"
+        style={{ backgroundImage: `url(${imagenFondo})` }}
+      >
+        
+        <div className="contenido-ingredientes">
+          <div className="texto-ingredientes">
+            <h1 className="titulo">
+              <RichText.Content value={tituloBloque}/>
+            </h1>
+
+            <p>
+              <RichText.Content value={textoBloque}/>
+            </p>
+
+            <div>
+              <a href={enlaceBloque} className="boton boton-secundario">
+                Leer más
+              </a>
+            </div>
+          </div>
+          
+          <div className="imagen-ingredientes">
+            <img src={imagenBloque}/>
+          </div>
+        </div>
+      </div>
+
+    )
+  }
 });

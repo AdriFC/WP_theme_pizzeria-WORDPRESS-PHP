@@ -827,6 +827,9 @@ registerBlockType("lapizzeria/textoimagen", {
       default: _pizzeria_icon_svg__WEBPACK_IMPORTED_MODULE_1__.ReactComponent
     }
   },
+  supports: {
+    align: ['wide', 'full']
+  },
   edit: props => {
     //extraer de props
     const {
@@ -873,7 +876,7 @@ registerBlockType("lapizzeria/textoimagen", {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "ingredientes-bloque",
       style: {
-        background: `url(${imagenFondo})`
+        backgroundImage: `url(${imagenFondo})`
       }
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(MediaUpload, {
       onSelect: onSeleccionarImagen,
@@ -926,7 +929,39 @@ registerBlockType("lapizzeria/textoimagen", {
     }))));
   },
   save: props => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "desde el front end");
+    //extraer de props
+    const {
+      attributes: {
+        imagenFondo,
+        tituloBloque,
+        textoBloque,
+        enlaceBloque,
+        imagenBloque
+      }
+    } = props;
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "ingredientes-bloque",
+      style: {
+        backgroundImage: `url(${imagenFondo})`
+      }
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "contenido-ingredientes"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "texto-ingredientes"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
+      className: "titulo"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+      value: tituloBloque
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(RichText.Content, {
+      value: textoBloque
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: enlaceBloque,
+      className: "boton boton-secundario"
+    }, "Leer m\xE1s"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "imagen-ingredientes"
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: imagenBloque
+    }))));
   }
 });
 

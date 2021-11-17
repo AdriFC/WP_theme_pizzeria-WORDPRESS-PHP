@@ -39,9 +39,6 @@
     margin: 0 auto;
 }
 
-
-/** Botones **/
-
 /** Botones **/
 .boton {
     padding: 1rem 3rem;
@@ -80,4 +77,8 @@
 .hero-block .components-icon-button .dashicon {
     color: var(--blanco)!important;
 }
+
+
+
+
 
